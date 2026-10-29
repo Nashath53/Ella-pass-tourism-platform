@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<!-- STATUS: AMBER. You may edit the TEXT on this page (headings, paragraphs, button words).
+     DO NOT delete or rename any id="...", data-...="..." or class="..." attribute, and do not remove the <script> lines at the bottom:
+     the site's code looks for them. Content such as places, prices and photos is NOT here, it is in js/data/. -->
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>EllaPass: Your Free Guide to Ella, Sri Lanka</title>
+  <meta name="description" content="Free local guide to Ella — plan your day, find cheap rooms, book a tuk-tuk and get real train times. Made for backpackers.">
+  <meta name="theme-color" content="#F7F3EA">
+  <link rel="canonical" href="https://ellapass.pages.dev">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="EllaPass">
+  <meta property="og:title" content="EllaPass: Your Free Guide to Ella, Sri Lanka">
+  <meta property="og:description" content="Free local guide to Ella — plan your day, find cheap rooms, book a tuk-tuk and get real train times. Made for backpackers.">
+  <meta property="og:url" content="https://ellapass.pages.dev">
+  <meta property="og:image" content="https://ellapass.pages.dev/images/og/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <script>(function(){try{var t=localStorage.getItem('ellaTheme');if(!t&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)t='dark';t=t==='dark'?'dark':'light';var d=document.documentElement;d.dataset.theme=t;d.dataset.bsTheme=t;}catch(e){}})();</script>
+  <link rel="icon" href="images/icons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="images/icons/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body data-page="home" data-active="home" data-base="" data-mode="visitor">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" id="siteHeader"></header>
+  <main id="main">
+    <section id="hero" class="hero" data-sky="day">
+      <div class="hero__stars" aria-hidden="true"></div>
+      <div class="hero__orb" aria-hidden="true"></div>
+      <svg class="hero__layer hero__layer--1" viewBox="0 0 1440 400" preserveAspectRatio="none" aria-hidden="true"><path class="hh1" d="M0 220 C140 130 280 110 430 170 C580 230 720 120 900 120 C1080 120 1240 190 1440 140 L1440 400 L0 400Z"/></svg>
+      <div class="hero__mist" aria-hidden="true"></div>
+      <svg class="hero__layer hero__layer--2" viewBox="0 0 1440 400" preserveAspectRatio="none" aria-hidden="true"><path class="hh2" d="M0 250 C200 170 360 190 520 240 C700 295 880 190 1060 205 C1240 220 1340 270 1440 240 L1440 400 L0 400Z"/></svg>
+      <svg class="hero__layer hero__layer--3" viewBox="0 0 1440 400" preserveAspectRatio="none" aria-hidden="true"><path class="hh3" d="M0 300 C240 250 440 280 660 300 C880 322 1100 270 1440 300 L1440 400 L0 400Z"/></svg>
+      <div class="hero__photo" aria-hidden="true"></div>
+      <div class="hero__scrim" aria-hidden="true"></div>
+      <svg class="hero__edge" viewBox="0 0 1440 96" preserveAspectRatio="none" aria-hidden="true"><path d="M0 96 L0 60 C240 10 480 80 720 52 C960 24 1200 70 1440 36 L1440 96Z"/></svg>
+      <div class="hero__inner">
+        <p class="hero__small">Your pass to Ella</p>
+        <h1 class="hero__title">Welcome to <em data-dest="name">Ella</em></h1>
+        <p class="hero__lead">
+          <span class="visitor-only">Mountains, viewpoints, cafés, transport and local know-how for your stay, all in one place on your phone.</span>
+          <span class="local-only">Cheap rooms, kade meals, bus and train tips and the best places to visit, all in one place on your phone.</span>
+        </p>
+        <div class="hero__cta">
+          <a class="btn btn-cta btn-lg" href="plan.html" data-track="hero:plan"><svg class="ico " aria-hidden="true" focusable="false"><use href="#i-stars"/></svg> Plan my day</a>
+          <a class="btn btn-ghost btn-lg" href="things-to-do.html" data-track="hero:explore">Explore Ella</a>
+        </div>
+        <ul class="hero__trust">
+          <li><svg class="ico " aria-hidden="true" focusable="false"><use href="#i-check-lg"/></svg> Free to use</li><li><svg class="ico " aria-hidden="true" focusable="false"><use href="#i-check-lg"/></svg> Local knowledge</li><li><svg class="ico " aria-hidden="true" focusable="false"><use href="#i-check-lg"/></svg> One-tap WhatsApp</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="now" aria-label="Right now in Ella">
+      <div class="container-xl">
+        <div class="row g-3">
+          <div class="col-lg-6"><article class="card-x now-card" id="nowMount"></article></div>
+          <div class="col-lg-6"><article class="card-x ticket" id="trainMount"></article></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container-xl">
+        <div class="sec-head"><h2>How EllaPass works</h2><p class="sec-sub">Three taps from "what should we do?" to a message in WhatsApp.</p></div>
+        <ol class="steps3 p-0">
+          <li><strong>Pick a vibe</strong><span>Quiet, sunrise, budget, rainy day, laptop-friendly.</span></li>
+          <li><strong>See real details</strong><span>Prices in LKR, times, tips and what to watch out for.</span></li>
+          <li><strong>Message them</strong><span>Open WhatsApp with a ready message to the owner or driver.</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section section--paper">
+      <div class="container-xl">
+        <div class="sec-head sec-head--row"><div><h2>Explore by vibe</h2><p class="sec-sub">Tap a collection to see everything that fits.</p></div><a class="btn btn-line btn-sm-x" href="things-to-do.html">All of Ella <svg class="ico " aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg></a></div>
+        <div class="coll-grid" id="collections"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container-xl">
+        <div class="sec-head sec-head--row"><div><h2>Start here</h2><p class="sec-sub">Everything a visitor needs.</p></div></div>
+        <div class="tiles" id="tiles">
+          <a class="tile" href="things-to-do.html" data-tile="things"><svg class="ico " aria-hidden="true" focusable="false"><use href="#i-binoculars"/></svg><span class="tile__t">Things to do</span><span class="tile__d">Hikes, views, waterfalls and tea</span></a>
+          <a class="tile" href="quiet-spots.html" data-tile="quiet"><svg class="ico " aria-hidden="true" focusable="false"><use href="#i-cloud-fog2"/></svg><span class="tile__t">Quiet spots</span><span class="tile__d">Calm, foggy places for time alone</span></a>
+          <a class="tile" href="plan.html" data-tile="plan"><svg class="ico " aria-hidden="true" focusable="false"><use href="#i-stars"/></svg><span class="tile__t">Plan my day</span><span class="tile__d">A simple plan in three taps</span></a>
+          <a class="tile" href="food.html" data-tile="food"><svg class="ico " aria-hidden="true" focusable="false"><use href="#i-cup-hot"/></svg><span class="tile__t">Food &amp; cafés</span><span class="tile__d">Kades, cafés, laptop-friendly spots</span></a>
+          <a class="tile" href="stay.html" data-tile="stay"><svg class="ico " aria-hidden="true" focusable="false"><use href="#i-house-heart"/></svg><span class="tile__t">Stay</span><span class="tile__d">Rooms and homestays, every budget</span></a>
+          <a class="tile" href="transport.html" data-tile="transport"><svg class="ico " aria-hidden="true" focusable="false"><use href="#i-scooter"/></svg><span class="tile__t">Transport</span><span class="tile__d">Tuk-tuk drivers, trains and buses</span></a>
+          <a class="tile" href="safety.html" data-tile="safety"><svg class="ico " aria-hidden="true" focusable="false"><use href="#i-shield-check"/></svg><span class="tile__t">Safety</span><span class="tile__d">Survival guide and emergency numbers</span></a>
+          <a class="tile" href="history.html" data-tile="history"><svg class="ico " aria-hidden="true" focusable="false"><use href="#i-grid"/></svg><span class="tile__t">History</span><span class="tile__d">The bridge, tea and Ravana</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--paper">
+      <div class="container-xl">
+        <div class="sec-head sec-head--row"><div><h2>Popular right now</h2><p class="sec-sub">Tap a card for the full guide.</p></div><a class="btn btn-line btn-sm-x" href="things-to-do.html">See all <svg class="ico " aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg></a></div>
+        <div class="row g-3" id="homePlaces"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container-xl">
+        <div class="sec-head sec-head--row"><div><h2><span class="visitor-only">Top-rated stays</span><span class="local-only">Cheap rooms near you</span></h2><p class="sec-sub"><span class="visitor-only">Message the owner on WhatsApp to check price and availability.</span><span class="local-only">Cheapest first. Message the owner on WhatsApp to check availability.</span></p></div><a class="btn btn-line btn-sm-x" href="stay.html">All stays <svg class="ico " aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg></a></div>
+        <div class="row g-3" id="homeStays"></div>
+      </div>
+    </section>
+
+    <section class="section section--paper">
+      <div class="container-xl">
+        <div class="row g-3">
+          <div class="col-lg-6">
+            <article class="card-x">
+              <p class="eyebrow">Staying at a partner guesthouse?</p>
+              <h3>Your private guest guide</h3>
+              <p>Your host gives you an access code for a private guide with Wi-Fi, house rules, services and more. It closes after checkout, and this public guide stays open.</p>
+              <a class="btn btn-cta" href="guest/index.html?p=ella-mountain-view" data-track="home:guest-entry"><svg class="ico " aria-hidden="true" focusable="false"><use href="#i-key"/></svg> Enter access code</a>
+            </article>
+          </div>
+          <div class="col-lg-6">
+            <div class="owner-cta h-100">
+              <p class="eyebrow">For owners and drivers</p>
+              <h3>Own a guesthouse, café or tuk-tuk?</h3>
+              <p>Join the free pilot: get listed and give your guests a private digital guide.</p>
+              <a class="btn btn-cta" href="contact.html#list-your-business">Get listed</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container-xl">
+        <div class="sec-head"><h2>Good to know</h2></div>
+        <div class="faq">
+          <details><summary>Is EllaPass free to use?</summary><p>Yes. The public guide is free for everyone. Businesses can pay to be featured, and paid listings are always labelled "Sponsored".</p></details>
+          <details><summary>Are prices and train times exact?</summary><p>No. They are guides. Prices are typical ranges and train times are approximate. Always confirm locally, and agree tuk-tuk prices before you go.</p></details>
+          <details><summary>How do I book a room or a driver?</summary><p>Tap WhatsApp on any card. A ready message opens in WhatsApp, and you agree details directly with the owner or driver. Nothing is paid on this website.</p></details>
+          <details><summary>What is Guest Mode?</summary><p>A private guide for guests of partner guesthouses, opened with an access code from your host. After checkout the private guide closes, and the public guide stays open.</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer" id="siteFooter"></footer>
+  <nav class="dock d-lg-none" id="siteDock" aria-label="Quick contact"></nav>
+  <div class="toast-x" id="toast" role="status" aria-live="polite"></div>
+  <script src="js/icons.js"></script>
+  <script src="js/scenes.js"></script>
+  <script src="js/data/config.js"></script>
+  <script src="js/data/tags.js"></script>
+  <script src="js/data/places.js"></script>
+  <script src="js/data/quiet-spots.js"></script>
+  <script src="js/data/food.js"></script>
+  <script src="js/data/stays.js"></script>
+  <script src="js/data/drivers.js"></script>
+  <script src="js/data/transport.js"></script>
+  <script src="js/data/trains.js"></script>
+  <script src="js/data/itineraries.js"></script>
+  <script src="js/data/trips.js"></script>
+  <script src="js/analytics.js"></script>
+  <script src="js/partials.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/pages.js"></script>
+</body>
+</html>

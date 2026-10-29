@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /guest/
+Disallow: /tools/
+Disallow: /docs/
+
+Sitemap: https://ellapass.pages.dev/sitemap.xml

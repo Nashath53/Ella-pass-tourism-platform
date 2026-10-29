@@ -1,0 +1,7 @@
+/explore          /things-to-do     301
+/explore.html     /things-to-do     301
+/quiet-spots      /things-to-do?tag=quiet    301
+/quiet-spots.html /things-to-do?tag=quiet    301
+/docs/*           /                 302
+/tools/*          /                 302
+/README.md        /                 302

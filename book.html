@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<!-- STATUS: AMBER. Edit text only. -->
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Book a Tuk-Tuk or Room in Ella | EllaPass</title>
+  <meta name="description" content="Book a tuk-tuk driver or a cheap room in Ella, Sri Lanka through EllaPass. Fair agreed prices, verified drivers and a booking code sent to you on WhatsApp.">
+  <meta name="theme-color" content="#F7F3EA">
+  <script>(function(){try{var t=localStorage.getItem('ellaTheme');if(!t&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)t='dark';t=t==='dark'?'dark':'light';var d=document.documentElement;d.dataset.theme=t;d.dataset.bsTheme=t;}catch(e){}})();</script>
+  <link rel="canonical" href="https://ellapass.pages.dev/book">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="EllaPass">
+  <meta property="og:title" content="Book a Tuk-Tuk or Room in Ella | EllaPass">
+  <meta property="og:description" content="Book a local driver or room in Ella with a fair agreed price and a booking code on WhatsApp.">
+  <meta property="og:url" content="https://ellapass.pages.dev/book">
+  <meta property="og:image" content="https://ellapass.pages.dev/images/og/og-image.png">
+  <link rel="icon" href="images/icons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="images/icons/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body data-page="book" data-active="book" data-base="" data-mode="visitor">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" id="siteHeader"></header>
+
+  <main id="main">
+    <section class="page-head">
+      <div class="container-xl">
+        <p class="eyebrow">Booking</p>
+        <h1>Book a tuk-tuk or room</h1>
+        <p>Fill in the form. We will match you with a verified driver or host and send your booking code on WhatsApp.</p>
+      </div>
+    </section>
+
+    <section class="section section--tight" style="overflow-x:hidden">
+      <div class="container-xl">
+        <div class="row g-4">
+
+          <!-- Form column -->
+          <div class="col-lg-7">
+            <div id="bookFormWrap">
+              <form class="bform" id="bookForm" novalidate autocomplete="on" style="overflow:hidden;max-width:100%;box-sizing:border-box">
+
+                <!-- Service type -->
+                <div>
+                  <label>What do you need?</label>
+                  <div class="chips" id="serviceChips">
+                    <button type="button" class="chip" data-service="tuk-ride" aria-pressed="false">Tuk-tuk ride</button>
+                    <button type="button" class="chip" data-service="tuk-day" aria-pressed="false">Full-day tuk-tuk</button>
+                    <button type="button" class="chip" data-service="guide" aria-pressed="false">Trekking guide</button>
+                    <button type="button" class="chip" data-service="transfer" aria-pressed="false">Transfer out of Ella</button>
+                    <button type="button" class="chip" data-service="room" aria-pressed="false">Room / stay</button>
+                  </div>
+                  <p class="field__err" id="serviceErr" role="alert"></p>
+                </div>
+
+                <!-- Pickup / destination (tuk-tuk + guide + transfer) -->
+                <div id="rideFields">
+                  <div class="row g-3">
+                    <div class="col-sm-6">
+                      <label for="bookFrom">Pick-up point</label>
+                      <input type="text" id="bookFrom" name="pickup" placeholder="e.g. Ella station or your guesthouse" autocomplete="off">
+                    </div>
+                    <div class="col-sm-6">
+                      <label for="bookTo">Destination or trip</label>
+                      <input type="text" id="bookTo" name="destination" placeholder="e.g. Nine Arch Bridge" autocomplete="off">
+                    </div>
+                  </div>
+                  <!-- Area guard message -->
+                  <div class="area-warn" id="areaWarn">
+                    <strong>Outside our area:</strong> EllaPass only provides rides and guides within 40 km of Ella town. For trips further away, <a href="contact.html">message us on WhatsApp</a> and we will suggest a licensed operator.
+                  </div>
+                </div>
+
+                <!-- Room fields -->
+                <div id="roomFields" hidden>
+                  <div class="row g-3">
+                    <div class="col-sm-6">
+                      <label for="roomBudget">Budget level</label>
+                      <select id="roomBudget" name="budget">
+                        <option value="">Choose…</option>
+                        <option value="low">Low — under LKR 5,000/night</option>
+                        <option value="medium">Medium — LKR 5,000–15,000</option>
+                        <option value="premium">Premium — LKR 15,000+</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-6">
+                      <label for="roomArea">Area</label>
+                      <select id="roomArea" name="area">
+                        <option value="">Any area</option>
+                        <option value="station">Near the railway station</option>
+                        <option value="town">In town</option>
+                        <option value="hills">In the hills (views)</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-4">
+                      <label for="roomNights">Nights</label>
+                      <input type="number" id="roomNights" name="nights" min="1" max="30" placeholder="1">
+                    </div>
+                    <div class="col-sm-4">
+                      <label for="roomRooms">Rooms</label>
+                      <input type="number" id="roomRooms" name="rooms" min="1" max="10" placeholder="1">
+                    </div>
+                    <div class="col-sm-4">
+                      <label for="bookPeople" style="display:block">Guests</label>
+                      <input type="number" id="bookPeople" name="people" min="1" max="20" placeholder="2">
+                    </div>
+                    <div class="col-12">
+                      <label class="check">
+                        <input type="checkbox" name="halal_meals" value="yes">
+                        <span class="check__box"></span>
+                        <span>Halal meals needed</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Date and time -->
+                <div class="row g-3" id="dateFields">
+                  <div class="col-sm-6">
+                    <label for="bookDate">Date</label>
+                    <input type="date" id="bookDate" name="date" required>
+                  </div>
+                  <div class="col-sm-6">
+                    <label for="bookTime">Time <small>(optional)</small></label>
+                    <input type="time" id="bookTime" name="time">
+                  </div>
+                </div>
+
+                <!-- People (for rides) -->
+                <div id="peopleField">
+                  <label for="ridePeople">Number of people</label>
+                  <input type="number" id="ridePeople" name="people" min="1" max="10" placeholder="2">
+                </div>
+
+                <!-- Preferred driver (non-sample only) -->
+                <div id="driverField">
+                  <label for="bookDriver">Preferred driver <small>(optional)</small></label>
+                  <select id="bookDriver" name="preferred_driver">
+                    <option value="">Any available driver</option>
+                  </select>
+                </div>
+
+                <!-- Divider -->
+                <hr>
+
+                <!-- Contact details -->
+                <div class="row g-3">
+                  <div class="col-sm-6">
+                    <label for="bookName">Your name <span aria-hidden="true">*</span></label>
+                    <input type="text" id="bookName" name="name" required autocomplete="name" aria-describedby="nameErr">
+                    <p class="field__err" id="nameErr" role="alert"></p>
+                  </div>
+                  <div class="col-sm-6">
+                    <label for="bookWA">WhatsApp number <span aria-hidden="true">*</span></label>
+                    <input type="tel" id="bookWA" name="whatsapp" required autocomplete="tel" placeholder="+94 or your country code" aria-describedby="waErr">
+                    <p class="field__err" id="waErr" role="alert"></p>
+                  </div>
+                  <div class="col-sm-6">
+                    <label for="bookEmail">Email <small>(optional)</small></label>
+                    <input type="email" id="bookEmail" name="email" autocomplete="email">
+                  </div>
+                  <div class="col-sm-6">
+                    <label for="bookLang">Language preference <small>(optional)</small></label>
+                    <select id="bookLang" name="language">
+                      <option value="">No preference</option>
+                      <option value="English">English</option>
+                      <option value="Sinhala">Sinhala</option>
+                      <option value="Tamil">Tamil</option>
+                      <option value="German">German</option>
+                      <option value="French">French</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  <div class="col-12">
+                    <label for="bookNotes">Extra notes <small>(optional)</small></label>
+                    <textarea id="bookNotes" name="notes" placeholder="e.g. luggage, early start, child seat needed…" rows="3"></textarea>
+                  </div>
+                </div>
+
+                <!-- Consent -->
+                <div>
+                  <label class="check">
+                    <input type="checkbox" id="bookConsent" name="consent" required aria-describedby="consentErr">
+                    <span class="check__box"></span>
+                    <span>I agree that EllaPass shares my name and WhatsApp number with the driver or host for this booking.</span>
+                  </label>
+                  <p class="field__err" id="consentErr" role="alert"></p>
+                </div>
+
+                <!-- Honeypot spam trap -->
+                <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden" aria-hidden="true">
+                  <label for="botcheck">Leave this empty</label>
+                  <input type="text" id="botcheck" name="botcheck" tabindex="-1" autocomplete="off">
+                </div>
+
+                <div id="bookStatus" aria-live="polite"></div>
+
+                <button type="submit" class="btn btn-cta btn-lg w-100" id="bookSend">
+                  <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-calendar-check"/></svg>
+                  Send booking request
+                </button>
+
+                <p class="fine text-center mt-2">No payment is taken here. You pay the driver or host directly after confirming on WhatsApp.</p>
+              </form>
+            </div>
+
+            <!-- Success state (hidden until form submits) -->
+            <div id="bookSuccess" hidden>
+              <div class="book-confirm card-x">
+                <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-check-lg"/></svg>
+                <h2>Booking request sent!</h2>
+                <p>Your booking code:</p>
+                <span class="book-ref" id="bookRef"></span>
+                <p style="color:var(--soft)">A driver or host will reply on WhatsApp within about 15 minutes. If you haven't heard back, message us.</p>
+                <div class="d-flex flex-wrap gap-2 justify-content-center mt-3">
+                  <a class="btn btn-wa" id="bookWAFollowup" href="#" target="_blank" rel="noopener">
+                    <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-whatsapp"/></svg>
+                    Also send on WhatsApp
+                  </a>
+                  <a class="btn btn-soft" href="things-to-do.html">Back to things to do</a>
+                </div>
+                <p class="fine mt-3">Keep your booking code. You may need it to give feedback after the trip.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Info column -->
+          <div class="col-lg-5">
+            <div class="card-x mb-3">
+              <p class="eyebrow">How it works</p>
+              <ol style="padding-left:1.2rem;margin:0;color:var(--soft);line-height:1.8">
+                <li>Fill in the form and tap "Send".</li>
+                <li>You get a booking code (EP-XXXX) and a WhatsApp message to confirm.</li>
+                <li>The driver or host replies on WhatsApp within about 15 minutes.</li>
+                <li>You pay directly after your ride or check-in. Nothing is paid here.</li>
+              </ol>
+            </div>
+            <div class="card-x mb-3">
+              <p class="eyebrow">Service area</p>
+              <h3>40 km from Ella town</h3>
+              <p style="color:var(--soft)">EllaPass provides tuk-tuks and guides only inside 40 km of Ella. This covers Nine Arch Bridge, Ravana Falls, Demodara, Lipton's Seat, Bandarawela and Badulla. For Udawalawe, Yala, the coast or Kandy — message us and we will suggest a licensed operator.</p>
+            </div>
+            <div class="card-x">
+              <p class="eyebrow">Fair fares</p>
+              <h3>Agreed prices, no surprises</h3>
+              <div id="fareRef" style="overflow-x:auto;max-width:100%"></div>
+              <p class="fine">These are reference ranges. The final price is agreed with your driver before the ride starts.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="siteFooter"></footer>
+  <nav class="dock d-lg-none" id="siteDock" aria-label="Quick navigation"></nav>
+  <div class="toast-x" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/icons.js"></script>
+  <script src="js/scenes.js"></script>
+  <script src="js/data/config.js"></script>
+  <script src="js/data/tags.js"></script>
+  <script src="js/data/places.js"></script>
+  <script src="js/data/quiet-spots.js"></script>
+  <script src="js/data/food.js"></script>
+  <script src="js/data/stays.js"></script>
+  <script src="js/data/drivers.js"></script>
+  <script src="js/data/transport.js"></script>
+  <script src="js/data/trains.js"></script>
+  <script src="js/data/itineraries.js"></script>
+  <script src="js/data/trips.js"></script>
+  <script src="js/analytics.js"></script>
+  <script src="js/partials.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/pages.js"></script>
+  <script>
+  (function () {
+    "use strict";
+
+    /* ── Populate fare reference ── */
+    const fareRef = document.getElementById("fareRef");
+    if (fareRef && typeof FARES !== "undefined") {
+      fareRef.innerHTML = "<ul style='padding-left:1.1rem;margin:0;color:var(--soft);font-size:.9rem'>" +
+        FARES.filter(f => f.destination === "ella").map(f =>
+          "<li>" + f.label + ": <strong>LKR " + f.priceLKR[0].toLocaleString() + " – " + f.priceLKR[1].toLocaleString() + "</strong></li>"
+        ).join("") + "</ul>";
+    }
+
+    /* ── Populate driver dropdown (non-sample only) ── */
+    const dSel = document.getElementById("bookDriver");
+    if (dSel && typeof DRIVERS !== "undefined") {
+      DRIVERS.filter(d => d.destination === "ella" && !d.sample).forEach(d => {
+        const o = document.createElement("option");
+        o.value = d.id; o.textContent = d.name + " (" + d.vehicle + ")";
+        dSel.appendChild(o);
+      });
+    }
+
+    /* ── Set today as min date ── */
+    const dateInput = document.getElementById("bookDate");
+    if (dateInput) {
+      const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Colombo" }).format(new Date());
+      dateInput.min = today; dateInput.value = today;
+    }
+
+    /* ── Service chip toggle ── */
+    let selectedService = "";
+    const OUTSIDE_KEYWORDS = ["airport","colombo","kandy","galle","yala","udawalawe","mirissa","negombo","trinco"];
+
+    document.getElementById("serviceChips").addEventListener("click", function (e) {
+      const b = e.target.closest("[data-service]"); if (!b) return;
+      document.querySelectorAll("[data-service]").forEach(x => x.setAttribute("aria-pressed","false"));
+      selectedService = b.dataset.service;
+      b.setAttribute("aria-pressed","true");
+      document.getElementById("rideFields").hidden = selectedService === "room";
+      document.getElementById("roomFields").hidden = selectedService !== "room";
+      document.getElementById("peopleField").hidden = selectedService === "room";
+      document.getElementById("driverField").hidden = selectedService === "room";
+      document.getElementById("serviceErr").textContent = "";
+    });
+
+    /* ── Destination area guard ── */
+    document.getElementById("bookTo").addEventListener("input", function () {
+      const val = this.value.toLowerCase();
+      const outside = OUTSIDE_KEYWORDS.some(k => val.includes(k));
+      document.getElementById("areaWarn").style.display = outside ? "block" : "none";
+    });
+
+    /* ── Reference code generator ── */
+    function makeRef() {
+      const now = new Date();
+      const d = [now.getFullYear().toString().slice(2),
+        String(now.getMonth()+1).padStart(2,"0"),
+        String(now.getDate()).padStart(2,"0")].join("");
+      const alpha = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
+      const arr = new Uint32Array(4);
+      crypto.getRandomValues(arr);
+      const rand = Array.from(arr, v => alpha[v % alpha.length]).join("");
+      return "EP-" + d + "-" + rand;
+    }
+
+    /* ── Form submit ── */
+    const form = document.getElementById("bookForm");
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      let valid = true;
+
+      const clear = id => { const el = document.getElementById(id); if (el) el.textContent = ""; };
+      const fail  = (id, msg) => { const el = document.getElementById(id); if (el) { el.textContent = msg; if (valid) { valid = false; el.previousElementSibling && el.previousElementSibling.focus(); } } };
+
+      clear("serviceErr"); clear("nameErr"); clear("waErr"); clear("consentErr");
+
+      if (!selectedService) fail("serviceErr", "Please choose what you need.");
+      const name = document.getElementById("bookName").value.trim();
+      if (!name) fail("nameErr", "Please enter your name.");
+      const wa = document.getElementById("bookWA").value.trim();
+      if (!wa || wa.length < 7) fail("waErr", "Please enter a valid WhatsApp number with country code.");
+      if (!document.getElementById("bookConsent").checked) fail("consentErr", "Please tick the consent box to continue.");
+      if (!valid) return;
+
+      /* Honeypot check */
+      if (document.getElementById("botcheck").value) {
+        document.getElementById("bookSuccess").hidden = false;
+        document.getElementById("bookFormWrap").hidden = true;
+        return;
+      }
+
+      const ref = makeRef();
+      const btn = document.getElementById("bookSend");
+      btn.disabled = true; btn.textContent = "Sending…";
+
+      const fd = new FormData(form);
+      fd.delete("botcheck");
+      fd.append("booking_ref", ref);
+      fd.append("service", selectedService);
+      fd.append("subject", "EllaPass booking request " + ref);
+
+      if (typeof SITE !== "undefined" && SITE.booking && SITE.booking.endpoint &&
+          !SITE.booking.endpoint.includes("OWNER")) {
+        Object.keys(SITE.booking.extra || {}).forEach(k => fd.append(k, SITE.booking.extra[k]));
+        const ctl = new AbortController();
+        const timer = setTimeout(() => ctl.abort(), 12000);
+        try {
+          const res = await fetch(SITE.booking.endpoint, { method:"POST", body:fd, headers:{ Accept:"application/json" }, signal:ctl.signal });
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok || data.success === false) throw new Error("rejected");
+        } catch (err) {
+          document.getElementById("bookStatus").innerHTML =
+            '<div class="alert-x"><span>Could not send. Please check your connection and try again, or ' +
+            '<a href="' + (typeof SITE !== "undefined" ? "https://wa.me/" + SITE.whatsapp : "#") + '" target="_blank" rel="noopener">message us on WhatsApp</a>.</span></div>';
+          btn.disabled = false; btn.innerHTML = '<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-calendar-check"/></svg> Try again';
+          clearTimeout(timer); return;
+        } finally { clearTimeout(timer); }
+      }
+
+      /* Show success */
+      document.getElementById("bookRef").textContent = ref;
+      const waMsg = "Hello! My EllaPass booking is " + ref + ". Service: " + selectedService + ". Name: " + name + ". Date: " + (document.getElementById("bookDate").value || "—");
+      const waNum = (typeof SITE !== "undefined" && SITE.whatsapp) || "";
+      if (waNum && /^\d{11,15}$/.test(waNum.replace(/\s/g, ""))) {
+        document.getElementById("bookWAFollowup").href = "https://wa.me/" + waNum + "?text=" + encodeURIComponent(waMsg);
+      } else {
+        document.getElementById("bookWAFollowup").hidden = true;
+      }
+      document.getElementById("bookSuccess").hidden = false;
+      document.getElementById("bookFormWrap").hidden = true;
+      document.getElementById("bookSuccess").scrollIntoView({ behavior:"smooth", block:"start" });
+    });
+
+  })();
+  </script>
+</body>
+</html>

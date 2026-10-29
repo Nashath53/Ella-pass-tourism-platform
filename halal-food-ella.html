@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<!-- STATUS: AMBER. Edit text only. -->
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Halal Food in Ella, Sri Lanka (2026): Restaurants, Kades and Hotels | EllaPass</title>
+  <meta name="description" content="Checked halal restaurants, kades and hotels in Ella and up to 40 km away. Certified, fully halal and halal-meat places with prices, alcohol info and maps.">
+  <meta name="theme-color" content="#F7F3EA">
+  <script>(function(){try{var t=localStorage.getItem('ellaTheme');if(!t&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)t='dark';t=t==='dark'?'dark':'light';var d=document.documentElement;d.dataset.theme=t;d.dataset.bsTheme=t;}catch(e){}})();</script>
+  <link rel="canonical" href="https://ellapass.pages.dev/halal-food-ella">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="EllaPass">
+  <meta property="og:title" content="Halal Food in Ella, Sri Lanka (2026) | EllaPass">
+  <meta property="og:description" content="Checked halal kades, restaurants and hotels in Ella. Verified levels, prices, maps and alcohol info.">
+  <meta property="og:url" content="https://ellapass.pages.dev/halal-food-ella">
+  <meta property="og:image" content="https://ellapass.pages.dev/images/og/og-image.png">
+  <link rel="icon" href="images/icons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="images/icons/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body data-page="halal" data-active="food" data-base="" data-mode="visitor">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" id="siteHeader"></header>
+
+  <main id="main">
+    <section class="page-head">
+      <div class="container-xl">
+        <p class="eyebrow">Halal food in Ella</p>
+        <h1>Halal food in Ella, Sri Lanka</h1>
+        <p>Restaurants, kades and hotels checked for halal status. Every place is labelled with what we know and when we checked it.</p>
+      </div>
+    </section>
+
+    <!-- How we check -->
+    <section class="section section--tight">
+      <div class="container-xl">
+        <div class="row g-3 mb-4">
+          <div class="col-md-7">
+            <div class="card-x">
+              <p class="eyebrow">How EllaPass checks halal status</p>
+              <h3>We only show what we can verify</h3>
+              <p style="color:var(--soft)">A place only carries a halal badge after the owner visits in person, the business confirms their halal level in writing, and we record the date. Until then, places show as "Not yet verified". We never add a halal label based on reviews alone.</p>
+              <p style="color:var(--soft);margin:0">The certifying body for halal food in Sri Lanka is the <a href="https://www.hac.lk" target="_blank" rel="noopener">Halal Assessment Council (HAC)</a>. A "certified" label means the place holds a current HAC certificate.</p>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="card-x">
+              <p class="eyebrow">Last checked</p>
+              <p style="color:var(--soft);margin:0">All places on this page were last reviewed in October 2026. Halal status can change — always confirm with the restaurant before ordering.</p>
+              <p class="fine">Re-checked every 3 months or when a reader reports a change.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Halal levels explanation -->
+        <div class="halal-level">
+          <div class="hlevel">
+            <strong>
+              <svg class="ico" aria-hidden="true" focusable="false" style="color:#2F7D5B"><use href="#i-check-lg"/></svg>
+              Halal certified (HAC)
+            </strong>
+            <p>Holds a valid Halal Assessment Council certificate. The highest level of verification.</p>
+          </div>
+          <div class="hlevel">
+            <strong>
+              <svg class="ico" aria-hidden="true" focusable="false" style="color:#2F7D5B"><use href="#i-check-lg"/></svg>
+              Fully halal
+            </strong>
+            <p>All meat is halal, no pork, no alcohol. Owner confirmed in writing. Not yet HAC certified.</p>
+          </div>
+          <div class="hlevel">
+            <strong>
+              <svg class="ico" aria-hidden="true" focusable="false" style="color:#B8861F"><use href="#i-check-lg"/></svg>
+              Halal meat
+            </strong>
+            <p>Meat is halal. Other items (alcohol, non-halal dishes) may also be on the menu. Confirm what is not halal before ordering.</p>
+          </div>
+          <div class="hlevel">
+            <strong>
+              <svg class="ico" aria-hidden="true" focusable="false" style="color:#4A5A52"><use href="#i-check-lg"/></svg>
+              Halal on request
+            </strong>
+            <p>The kitchen prepares halal meals when asked in advance. Not a full halal kitchen.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Halal places list -->
+    <section class="section section--paper">
+      <div class="container-xl">
+        <div class="sec-head sec-head--row">
+          <div>
+            <h2>Halal places in Ella</h2>
+            <p class="sec-sub">Only places with a confirmed halal level and a verification date are shown with a badge. Others are listed as candidates to check.</p>
+          </div>
+        </div>
+        <div class="row g-3" id="halalList"></div>
+
+        <!-- Owner action notice -->
+        <div class="notice mt-4" id="halalPending">
+          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-info-circle"/></svg>
+          <span><strong>Owner action required:</strong> The halal candidates listed below are based on online reviews and cannot be verified without a physical visit. Visit each one, collect written confirmation of their halal level, and set <code>halal.level</code> and <code>halal.verifiedOn</code> in <code>js/data/food.js</code>. Until then, no halal badge is shown.</span>
+        </div>
+
+        <div class="row g-3 mt-2" id="halalCandidates"></div>
+      </div>
+    </section>
+
+    <!-- Halal dishes to try -->
+    <section class="section">
+      <div class="container-xl">
+        <div class="sec-head"><h2>Halal dishes to try in Ella</h2></div>
+        <div class="row g-3">
+          <div class="col-sm-6 col-lg-3"><div class="card-x"><h3>Rice and curry</h3><p style="color:var(--soft)">The everyday Sri Lankan meal — rice with several curries and sambol. Ask if the meat is halal before ordering.</p></div></div>
+          <div class="col-sm-6 col-lg-3"><div class="card-x"><h3>Chicken kottu</h3><p style="color:var(--soft)">Chopped roti, vegetables and chicken cooked on a hot plate. One of Sri Lanka's most popular street foods. Ask for halal chicken.</p></div></div>
+          <div class="col-sm-6 col-lg-3"><div class="card-x"><h3>Biryani</h3><p style="color:var(--soft)">Spiced rice with chicken or mutton, popular at Muslim-run restaurants. Confirm halal sourcing with the kitchen.</p></div></div>
+          <div class="col-sm-6 col-lg-3"><div class="card-x"><h3>String hoppers with chicken curry</h3><p style="color:var(--soft)">Steamed rice-noodle nests served with a flavourful chicken curry — a classic Sri Lankan breakfast.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section section--paper">
+      <div class="container-xl" style="max-width:740px">
+        <div class="sec-head"><h2>Frequently asked questions</h2></div>
+        <div class="faq">
+          <details>
+            <summary>Is it easy to find halal food in Ella?</summary>
+            <p>Ella has a small Muslim community and a few restaurants that serve halal food. It is not as easy as in a larger city, but with the guide on this page you can find suitable options. Vegetarian dishes are widely available and a safe option at any restaurant.</p>
+          </details>
+          <details>
+            <summary>Are most Sri Lankan restaurants halal?</summary>
+            <p>No. Many Sri Lankan restaurants serve pork and alcohol alongside other dishes. Always confirm halal status before ordering. "No pork" does not automatically mean halal meat sourcing.</p>
+          </details>
+          <details>
+            <summary>Where is the nearest mosque?</summary>
+            <p>The nearest mosques are in Bandarawela (about 20 km) and Badulla (about 15 km). Jumu'ah times vary — confirm with the mosque directly. We are working on adding verified mosque information to this page. <span class="tagchip tagchip--check">Check before you go</span></p>
+          </details>
+          <details>
+            <summary>Can I request halal meals at a guesthouse?</summary>
+            <p>Some guesthouses will prepare halal meals on request if you give them notice in advance. Use the halal meals tick on the EllaPass booking form and we will match you with a guesthouse that can accommodate this.</p>
+          </details>
+          <details>
+            <summary>How does EllaPass verify halal status?</summary>
+            <p>We only add a halal badge after a physical visit to the restaurant, written confirmation from the owner of their halal level, and a record of the date we checked. We re-check every three months or when a reader reports a change. A place that carries no badge has not been verified yet.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="siteFooter"></footer>
+  <nav class="dock d-lg-none" id="siteDock" aria-label="Quick navigation"></nav>
+  <div class="toast-x" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/icons.js"></script>
+  <script src="js/scenes.js"></script>
+  <script src="js/data/config.js"></script>
+  <script src="js/data/tags.js"></script>
+  <script src="js/data/places.js"></script>
+  <script src="js/data/quiet-spots.js"></script>
+  <script src="js/data/food.js"></script>
+  <script src="js/data/stays.js"></script>
+  <script src="js/data/drivers.js"></script>
+  <script src="js/data/transport.js"></script>
+  <script src="js/data/trains.js"></script>
+  <script src="js/data/itineraries.js"></script>
+  <script src="js/data/trips.js"></script>
+  <script src="js/analytics.js"></script>
+  <script src="js/partials.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/pages.js"></script>
+  <script>
+  (function () {
+    "use strict";
+    const esc = v => String(v || "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+    // Render verified halal places
+    const verified = (typeof FOOD !== "undefined" ? FOOD : []).filter(f => f.halal && f.halal.level && f.halal.verifiedOn);
+    const candidates = (typeof FOOD !== "undefined" ? FOOD : []).filter(f => f.halal && !f.halal.level && f.sources && f.sources.length);
+
+    const LEVEL_BADGE = {
+      certified: "Halal certified (HAC)",
+      full:      "Fully halal",
+      meat:      "Halal meat",
+      request:   "Halal on request"
+    };
+
+    function placeCard(f) {
+      const badge = f.halal && f.halal.level && f.halal.verifiedOn
+        ? '<span class="tagchip tagchip--halal"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-check-lg"/></svg> ' + esc(LEVEL_BADGE[f.halal.level] || f.halal.level) + '</span>'
+        : '<span class="tagchip tagchip--unverified"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-info-circle"/></svg> Not yet verified by EllaPass</span>';
+      const alcohol = f.halal && f.halal.alcohol === false ? '<span class="tagchip">No alcohol</span>' : '';
+      const pork = f.halal && f.halal.pork === false ? '<span class="tagchip">No pork</span>' : '';
+      return `<div class="col-md-6"><article class="card-x">
+        <p class="item__kicker">${esc(f.type === "srilankan" ? "Sri Lankan" : f.type)}</p>
+        <h3>${esc(f.name)}</h3>
+        <p style="color:var(--soft)">${esc(f.desc)}</p>
+        <p style="color:var(--soft);font-size:.9rem">${esc(f.distance)}</p>
+        <div class="tagrow">${badge}${alcohol}${pork}</div>
+        <div class="item__actions mt-2">
+          <a class="btn btn-soft btn-sm-x" href="${esc(f.mapsUrl)}" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-map"/></svg> Map</a>
+        </div>
+      </article></div>`;
+    }
+
+    const halalList = document.getElementById("halalList");
+    const halalCandidates = document.getElementById("halalCandidates");
+
+    if (verified.length) {
+      halalList.innerHTML = verified.map(placeCard).join("");
+    } else {
+      halalList.innerHTML = '<div class="col-12"><div class="empty"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-info-circle"/></svg><p>No verified halal places yet. The owner is working on visiting the candidates below. Check back soon.</p></div></div>';
+    }
+
+    if (candidates.length) {
+      halalCandidates.innerHTML = candidates.map(placeCard).join("");
+    } else {
+      document.getElementById("halalPending").hidden = true;
+    }
+  })();
+  </script>
+</body>
+</html>

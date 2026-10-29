@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<!-- STATUS: GREEN (a helper page for YOU, not for visitors).
+     Open this file in your browser after you edit anything in js/data/. It checks your data for mistakes
+     and has a TOKEN MAKER for new guest bookings. It changes nothing by itself. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>EllaPass data check and token maker</title>
+  <style>
+    body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; margin: 0; background: #F7F3EA; color: #14231D; line-height: 1.55; }
+    main { max-width: 860px; margin: 0 auto; padding: 1.25rem; }
+    h1 { font-size: 1.6rem; margin: .5rem 0; } h2 { font-size: 1.2rem; margin: 1.8rem 0 .6rem; }
+    .card { background: #fff; border: 1px solid rgba(20,35,29,.14); border-radius: 14px; padding: 1rem 1.2rem; margin: .8rem 0; }
+    .sum { display: flex; gap: .6rem; flex-wrap: wrap; }
+    .pill { padding: .4rem .9rem; border-radius: 99px; font-weight: 700; }
+    .pill.ok { background: #DDF2E6; } .pill.warn { background: #FFF1CC; } .pill.err { background: #FBDDD3; }
+    ul { padding-left: 1.2rem; margin: .4rem 0; } li { margin: .25rem 0; }
+    li.err::marker { content: "✖ "; color: #B9421B; } li.warn::marker { content: "⚠ "; color: #B8861F; } li.ok::marker { content: "✔ "; color: #2F7D5B; }
+    code { background: #EFE8D8; padding: .1rem .35rem; border-radius: 6px; word-break: break-all; }
+    label { display: block; font-weight: 700; margin-top: .7rem; }
+    input, select, button, textarea { font: inherit; padding: .6rem .8rem; border-radius: 10px; border: 1.5px solid rgba(20,35,29,.25); max-width: 100%; }
+    button { background: #0E3B2E; color: #fff; border: 0; font-weight: 700; cursor: pointer; margin-top: .7rem; min-height: 44px; }
+    pre { background: #0E3B2E; color: #F7F3EA; padding: 1rem; border-radius: 12px; overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
+    .small { font-size: .88rem; color: #4A5A52; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>EllaPass data check</h1>
+  <p class="small">Reads the files in <code>js/data/</code> and tells you what is wrong. Nothing is changed. Refresh the page after every edit.</p>
+  <div class="sum" id="sum"></div>
+  <div id="report"></div>
+
+  <h2>Token maker (new guest booking)</h2>
+  <div class="card">
+    <p class="small">Fill this in for each booking. Copy the line into <code>js/data/guest-tokens.js</code>, save, publish, then send the guest the message below.</p>
+    <label for="tmProp">Guesthouse</label><select id="tmProp"></select>
+    <label for="tmFrom">Arrival date</label><input type="date" id="tmFrom">
+    <label for="tmTo">Checkout date (the guide stays open until the END of this day)</label><input type="date" id="tmTo">
+    <label for="tmRef">Booking reference (your own note, e.g. guest name or Booking.com number)</label><input type="text" id="tmRef" placeholder="e.g. ANNA-OCT" maxlength="30">
+    <button type="button" id="tmGo">Make token</button>
+    <div id="tmOut"></div>
+  </div>
+</main>
+
+<!-- Data files (same ones the site uses) -->
+<script src="../js/data/config.js"></script>
+<script src="../js/data/tags.js"></script>
+<script src="../js/data/places.js"></script>
+<script src="../js/data/quiet-spots.js"></script>
+<script src="../js/data/food.js"></script>
+<script src="../js/data/stays.js"></script>
+<script src="../js/data/drivers.js"></script>
+<script src="../js/data/transport.js"></script>
+<script src="../js/data/trains.js"></script>
+<script src="../js/data/itineraries.js"></script>
+<script src="../js/data/guest-private.js"></script>
+<script src="../js/data/guest-tokens.js"></script>
+<script>
+(function () {
+  "use strict";
+  const out = { err: [], warn: [], ok: [] };
+  const groups = [];
+  let current = null;
+  function group(name) { current = { name: name, items: [] }; groups.push(current); }
+  function add(kind, msg) { out[kind].push(msg); current.items.push({ kind: kind, msg: msg }); }
+  const isUrl = (u) => /^https?:\/\/\S+$/.test(String(u || ""));
+  const isDate = (d) => /^\d{4}-\d{2}-\d{2}$/.test(String(d || "")) && !isNaN(new Date(d + "T00:00:00"));
+  const isTime = (t) => /^([01]\d|2[0-3]):[0-5]\d$/.test(String(t || ""));
+  const tagIds = (typeof TAGS !== "undefined") ? TAGS.map((t) => t.id) : [];
+  const SCENES = ["peak", "bridge", "rock", "falls", "tea", "mist", "view", "river", "cafe", "stay", "kade", "tuktuk", "car"];
+
+  function checkList(name, list, rules) {
+    group(name + " (" + list.length + ")");
+    const seen = {};
+    list.forEach((x, i) => {
+      const who = (x.id || ("#" + (i + 1))) + (x.name ? " (" + x.name + ")" : "");
+      if (!x.id) add("err", name + " " + (i + 1) + ": missing id");
+      else if (seen[x.id]) add("err", who + ": duplicate id, every id must be unique");
+      seen[x.id] = true;
+      (rules.required || []).forEach((f) => { if (x[f] === undefined || x[f] === "" || x[f] === null) add("err", who + ": missing field '" + f + "'"); });
+      if (x.priceLKR) { if (!Array.isArray(x.priceLKR) || x.priceLKR.length !== 2 || x.priceLKR[0] > x.priceLKR[1]) add("err", who + ": priceLKR must be [lowest, highest] with lowest first"); }
+      (x.tags || []).forEach((t) => { if (tagIds.indexOf(t) === -1) add("err", who + ": unknown tag '" + t + "' (add it to tags.js or fix the spelling)"); });
+      if (rules.tags && (!x.tags || !x.tags.length)) add("warn", who + ": no tags, it will not appear in vibe filters");
+      ["mapsUrl", "url"].forEach((f) => { if (x[f] && !isUrl(x[f]) && !String(x[f]).startsWith("#")) add("err", who + ": " + f + " must start with https://"); });
+      if (x.whatsapp !== undefined) { if (!/^\d{10,15}$/.test(String(x.whatsapp))) add(/X/i.test(String(x.whatsapp)) ? "warn" : "err", who + ": WhatsApp number '" + x.whatsapp + "' " + (/X/i.test(String(x.whatsapp)) ? "is still a placeholder" : "must be digits only with country code, e.g. 94771234567")); }
+      if (x.scene && SCENES.indexOf(x.scene) === -1) add("warn", who + ": unknown scene '" + x.scene + "' (a default will be used)");
+      if (x.ratings) { if (x.ratings.average < 0 || x.ratings.average > 5) add("err", who + ": ratings.average must be 0 to 5"); }
+      if (x.sample === true) add("warn", who + ": still marked sample: true (replace with real data, then set it to false)");
+      if (rules.extra) rules.extra(x, who);
+    });
+    if (!out.err.length || current.items.every((i) => i.kind !== "err")) add("ok", "Structure looks fine");
+  }
+
+  group("Settings (config.js)");
+  if (/X/.test(SITE.whatsapp)) add("warn", "SITE.whatsapp is still a placeholder"); else add("ok", "SITE.whatsapp set");
+  if (/X/.test(SITE.phone)) add("warn", "SITE.phone is still a placeholder");
+  if (/REPLACE/.test(SITE.feedbackUrl) && !(SITE.feedback && SITE.feedback.endpoint)) add("warn", "No feedback method set: add SITE.feedback.endpoint (in-site form) or a real SITE.feedbackUrl (Google Form)");
+  else add("ok", "Feedback method set");
+  if (/example\.lk/.test(SITE.url)) add("warn", "SITE.url is still example.lk. Replace your domain everywhere before publishing (guide, section 8)");
+  if (!SITE.brand) add("err", "SITE.brand is empty");
+  Object.keys(DESTINATIONS).forEach((k) => { const d = DESTINATIONS[k]; if (!isTime(d.sunrise) || !isTime(d.sunset)) add("err", d.name + ": sunrise/sunset must be HH:MM"); (d.emergency || []).forEach((e) => { if (!/^\d{2,4}$/.test(e.number)) add("err", "Emergency number invalid: " + e.number); }); });
+  add("warn", "Verify the emergency numbers (119, 1990, 110) before publishing");
+
+  checkList("Places", PLACES, { required: ["name", "short", "overview", "duration", "best", "cost", "how", "mapsUrl"], tags: true });
+  checkList("Quiet spots", QUIET_SPOTS, { required: ["name", "short", "overview", "duration", "mapsUrl"], tags: true });
+  checkList("Food and cafés", FOOD, { required: ["name", "type", "level", "priceLKR", "distance", "desc", "mapsUrl"], tags: true,
+    extra: (x, who) => { if (["cafe", "srilankan", "vegetarian", "international"].indexOf(x.type) === -1) add("err", who + ": type must be cafe, srilankan, vegetarian or international"); if (["low", "medium", "premium"].indexOf(x.level) === -1) add("err", who + ": level must be low, medium or premium"); if (x.wifi && ["fast", "ok", "none"].indexOf(x.wifi) === -1) add("err", who + ": wifi must be fast, ok or none"); } });
+  checkList("Stays", STAYS, { required: ["name", "area", "level", "priceLKR", "distance", "note", "whatsapp", "mapsUrl"], tags: true,
+    extra: (x, who) => { if (["town", "station", "hills"].indexOf(x.area) === -1) add("err", who + ": area must be town, station or hills"); if (["low", "medium", "premium"].indexOf(x.level) === -1) add("err", who + ": level must be low, medium or premium"); } });
+  checkList("Drivers", DRIVERS, { required: ["name", "vehicle", "areas", "whatsapp", "ratings"], tags: false,
+    extra: (x, who) => { (x.reviews || []).forEach((r, i) => { if (!(r.rating >= 1 && r.rating <= 5)) add("err", who + ": comment " + (i + 1) + " rating must be 1 to 5"); if (r.sample) add("warn", who + ": comment " + (i + 1) + " is a SAMPLE comment, replace it with a real one (with permission)"); }); } });
+  checkList("Transport cards", TRANSPORT, { required: ["name", "text", "cta", "kind"] });
+
+  group("Train times");
+  TRAINS.forEach((t) => { if (!isTime(t.time)) add("err", "Train time '" + t.time + "' must look like 08:50 (24-hour)"); });
+  if (TRAINS.some((t) => t.sample)) add("warn", "Train times are still SAMPLES. Replace with the real timetable, then set sample: false"); else add("ok", "Train times marked real");
+
+  group("Fares");
+  FARES.forEach((f) => { if (!Array.isArray(f.priceLKR) || f.priceLKR[0] > f.priceLKR[1]) add("err", f.label + ": priceLKR must be [lowest, highest]"); });
+  add("ok", FARES.length + " fares listed");
+
+  group("Planner (itineraries.js)");
+  let missing = 0;
+  ["two", "half", "full"].forEach((t) => ["hiking", "photography", "food", "relaxing"].forEach((i) => { if (!(ITINERARIES.plans[t] && ITINERARIES.plans[t][i])) { missing++; add("err", "Missing plan: " + t + " / " + i); } }));
+  ["two", "half", "full"].forEach((t) => ["low", "medium", "premium"].forEach((b) => { if (!(ITINERARIES.cost[t] && ITINERARIES.cost[t][b])) { missing++; add("err", "Missing cost: " + t + " / " + b); } }));
+  if (!missing) add("ok", "All 36 time/interest/budget combinations have a plan and a cost");
+
+  group("Guesthouses and guest tokens");
+  Object.keys(PROPERTIES).forEach((id) => {
+    const p = PROPERTIES[id];
+    if (p.id !== id) add("err", id + ": the key and the id field must match");
+    if (!GUEST_PRIVATE[id]) add("err", id + ": no private guest info in guest-private.js");
+    else { const g = GUEST_PRIVATE[id]; ["wifiName", "wifiPassword", "checkIn", "checkOut", "breakfastTime"].forEach((f) => { if (!g[f]) add("warn", id + ": guest-private.js is missing " + f); }); }
+    if (/X/i.test(p.whatsapp)) add("warn", id + ": WhatsApp number is still a placeholder");
+    if (/REPLACE/.test(p.reviewUrl || "")) add("warn", id + ": reviewUrl is still a placeholder (the last-day review banner needs a real Google review link)");
+  });
+  Object.keys(GUEST_PRIVATE).forEach((id) => { if (!PROPERTIES[id]) add("err", id + ": has private info but no public profile in config.js"); });
+  const localDay = (d) => { const p2 = (n) => String(n).padStart(2, "0"); return d.getFullYear() + "-" + p2(d.getMonth() + 1) + "-" + p2(d.getDate()); };
+  const today = localDay(new Date());
+  Object.keys(GUEST_TOKENS).forEach((code) => {
+    const t = GUEST_TOKENS[code];
+    if (!PROPERTIES[t.property]) add("err", code + ": property '" + t.property + "' does not exist");
+    if (!isDate(t.validFrom) || !isDate(t.validTo)) add("err", code + ": dates must look like 2026-11-04");
+    else if (t.validFrom > t.validTo) add("err", code + ": validFrom is after validTo");
+    if (code !== code.toUpperCase()) add("err", code + ": codes must be UPPER CASE in the file");
+    if (/DEMO|TEST|LASTDAY/.test(code)) add("warn", code + ": demo token. Remove it before real guests use the site");
+    else if (code.length < 10) add("warn", code + ": short code, easy to guess. Use the token maker below");
+    if (t.validTo && t.validTo < today) add("warn", code + ": expired on " + t.validTo + " (you can delete old tokens when you like)");
+  });
+  add("ok", Object.keys(GUEST_TOKENS).length + " token(s) found");
+
+  /* photo files: report the ones that are named in the data but cannot be found */
+  group("Photos named in the data");
+  const files = [];
+  [PLACES, QUIET_SPOTS, FOOD, STAYS].forEach((l) => l.forEach((x) => { if (x.image) files.push(["images/" + x.image, x.name]); }));
+  DRIVERS.forEach((d) => { if (d.photo) files.push(["images/" + d.photo, d.name + " (portrait)"]); if (d.vehiclePhoto) files.push(["images/" + d.vehiclePhoto, d.name + " (vehicle)"]); });
+  const photoGroup = current; let pending = files.length, missingPhotos = 0;
+  if (!files.length) add("ok", "No photos named yet");
+  files.forEach((f) => { const im = new Image(); im.onload = () => done(); im.onerror = () => { missingPhotos++; photoGroup.items.push({ kind: "warn", msg: "Photo not found: " + f[0] + " for " + f[1] + " (an illustration is shown instead)" }); done(); }; im.src = "../" + f[0]; });
+  function done() { if (--pending === 0) { if (!missingPhotos) photoGroup.items.push({ kind: "ok", msg: "All " + files.length + " photo files found" }); render(); } }
+
+  function render() {
+    const errs = groups.reduce((n, g) => n + g.items.filter((i) => i.kind === "err").length, 0);
+    const warns = groups.reduce((n, g) => n + g.items.filter((i) => i.kind === "warn").length, 0);
+    document.getElementById("sum").innerHTML = '<span class="pill ' + (errs ? "err" : "ok") + '">' + errs + " error" + (errs === 1 ? "" : "s") + '</span><span class="pill ' + (warns ? "warn" : "ok") + '">' + warns + " warning" + (warns === 1 ? "" : "s") + "</span>";
+    document.getElementById("report").innerHTML = groups.map((g) => '<div class="card"><strong>' + g.name + "</strong><ul>" + g.items.map((i) => '<li class="' + i.kind + '">' + String(i.msg).replace(/&/g, "&amp;").replace(/</g, "&lt;") + "</li>").join("") + "</ul></div>").join("");
+  }
+  if (!files.length) render();
+
+  /* ---------------- token maker ---------------- */
+  const sel = document.getElementById("tmProp");
+  sel.innerHTML = Object.keys(PROPERTIES).map((id) => '<option value="' + id + '">' + PROPERTIES[id].name + " (" + id + ")</option>").join("");
+  const to = document.getElementById("tmTo"), from = document.getElementById("tmFrom");
+  from.value = today; const d3 = new Date(); d3.setDate(d3.getDate() + 3); to.value = localDay(d3);
+  const ALPHABET = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";   // no O, 0, I, 1, L to avoid typing mistakes
+  function randomPart(n) { const a = new Uint32Array(n); crypto.getRandomValues(a); return Array.from(a, (v) => ALPHABET[v % ALPHABET.length]).join(""); }
+  document.getElementById("tmGo").addEventListener("click", () => {
+    const id = sel.value, ref = (document.getElementById("tmRef").value || "BOOKING").trim().toUpperCase().replace(/[^A-Z0-9-]/g, "-") || "BOOKING";
+    if (!from.value || !to.value || from.value > to.value) { document.getElementById("tmOut").innerHTML = '<p class="small" style="color:#B9421B"><strong>Check the dates:</strong> arrival must be on or before checkout.</p>'; return; }
+    let code;
+    do { code = id.split("-").map((w) => w[0]).join("").toUpperCase().slice(0, 4) + "-" + randomPart(4) + "-" + randomPart(4); } while (GUEST_TOKENS[code]);
+    const base = SITE.url.replace(/\/$/, "");
+    const link = base + "/guest/index.html?token=" + code;
+    const line = '  "' + code + '": { property: "' + id + '", booking: "' + ref + '", validFrom: "' + from.value + '", validTo: "' + to.value + '" },';
+    const msg = "Hello! Welcome to " + PROPERTIES[id].name + ". Your private stay guide (Wi-Fi, house rules, local tips) is here:\n" + link + "\n\nOr scan the QR code in your room and enter this code: " + code + "\nThe guide is open until the end of " + to.value + ".";
+    document.getElementById("tmOut").innerHTML =
+      '<p><strong>1. Paste this line</strong> inside the curly braces of <code>GUEST_TOKENS</code> in <code>js/data/guest-tokens.js</code> (keep the comma at the end):</p><pre id="tmLine"></pre>' +
+      '<p><strong>2. Save, publish the site, then send the guest this message:</strong></p><pre id="tmMsg"></pre>';
+    document.getElementById("tmLine").textContent = line; document.getElementById("tmMsg").textContent = msg;
+  });
+})();
+</script>
+</body>
+</html>
